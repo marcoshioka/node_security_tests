@@ -1,0 +1,43 @@
+version: '2.1'
+orbs:
+  node: circleci/node@4.2.1
+jobs:
+  vulnerabilities:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: true
+      - run: node --version
+          
+      - run: npm install
+
+      - run: npm run vulnerabilities  
+
+      - store_artifacts:
+          path: /home/circleci/project/log-vulnerabilities.txt  
+          destination: contacts_report
+                  
+  pentest:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: true
+      - run: node --version
+      
+      - run: npm install
+
+      - run: npm run pentest  
+
+      - store_artifacts:
+          path: /home/circleci/project/log-pentest.txt 
+          destination: pentest  
+
+workflows:
+  security_tests:
+    jobs:
+      - vulnerabilities
+      - pentest
