@@ -2,25 +2,6 @@ version: '2.1'
 orbs:
   node: circleci/node@4.2.1
 jobs:
-  vulnerabilities:
-    docker:
-      - image: 'cimg/base:stable'
-    steps:
-      - checkout
-      - node/install:
-          install-yarn: true
-      - run: node --version
-          
-      - run: npm install
-
-      - run: npm i chromium-binary
-  
-      - run: npm run vulnerabilities  
-
-      - store_artifacts:
-          path: /home/circleci/project/log-vulnerabilities.txt  
-          destination: log-vulnerabilities
-                  
   pentest:
     docker:
       - image: 'cimg/base:stable'
@@ -41,5 +22,4 @@ jobs:
 workflows:
   security_tests:
     jobs:
-      - vulnerabilities
       - pentest
