@@ -1,0 +1,8 @@
+
+  Website: https://www.verifymyage.co.uk/
+  ○ No JavaScript libraries detected with publicly known security vulnerabilities
+  
+  [0] Total vulnerabilities
+  [6436.37ms] execution time
+  vulnerabilities powered by Snyk.io (https://snyk.io/vuln?type=npm)
+    

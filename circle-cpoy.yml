@@ -1,0 +1,25 @@
+version: '2.1'
+orbs:
+  node: circleci/node@4.2.1
+jobs:
+  pentest:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: true
+      - run: node --version
+      
+      - run: npm install
+
+      - run: npm run pentest  
+
+      - store_artifacts:
+          path: /home/circleci/project/log-pentest.txt 
+          destination: pentest  
+
+workflows:
+  security_tests:
+    jobs:
+      - pentest

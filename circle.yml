@@ -1,25 +1,47 @@
 version: '2.1'
 orbs:
-  node: circleci/node@4.2.1
+  browser-tools: circleci/browser-tools@1.1.0
 jobs:
+  vulnerable:
+    docker:
+      - image: cimg/node:15.0.1-browsers
+    steps:
+      - browser-tools/install-browser-tools
+      - checkout
+      
+      - run: |
+          node --version
+          google-chrome --version
+
+      - run: npm install
+
+      - run: npm run vulnerable  
+
+      - store_artifacts:
+          path: /home/circleci/project/log-vulnerable.txt 
+          destination: vulnerable
+
   pentest:
     docker:
-      - image: 'cimg/base:stable'
+      - image: cimg/node:15.0.1-browsers
     steps:
+      - browser-tools/install-browser-tools
       - checkout
-      - node/install:
-          install-yarn: true
-      - run: node --version
       
+      - run: |
+          node --version
+          google-chrome --version
+
       - run: npm install
 
       - run: npm run pentest  
 
       - store_artifacts:
           path: /home/circleci/project/log-pentest.txt 
-          destination: pentest  
-
+          destination: pentest        
+            
 workflows:
   security_tests:
     jobs:
+      - vulnerable
       - pentest

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "vulnerable": "npx is-website-vulnerable https://www.verifymyage.co.uk/ | tee log-vulnerable.txt",
     "pentest": "npx pentest-tool-lite https://www.verifymyage.co.uk/ | tee log-file.txt"
   },
   "repository": {
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/marcoshioka/node_security_tests#readme",
   "dependencies": {
+    "is-website-vulnerable": "^1.14.7",
     "pentest-tool-lite": "^3.3.2"
   }
 }
