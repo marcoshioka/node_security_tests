@@ -13,11 +13,13 @@ jobs:
           
       - run: npm install
 
+      - run: npm i chromium
+
       - run: npm run vulnerabilities  
 
       - store_artifacts:
           path: /home/circleci/project/log-vulnerabilities.txt  
-          destination: contacts_report
+          destination: log-vulnerabilities
                   
   pentest:
     docker:
